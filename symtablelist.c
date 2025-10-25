@@ -94,7 +94,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
 
-        if (SymTable_contains(SymTable_T oSymTable, const char *pcKey)==1)
+        if (SymTable_contains(oSymTable, pcKey)==1)
             return 0;
         
         psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
