@@ -110,10 +110,10 @@ static void testBasics(void)
    fflush(stdout);
 
    /* Test SymTable_new(). */
-   printf("Line");
+   
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
-   printf("Line");
+   ASSURE(5 != 5);
    /* Test SymTable_put() and SymTable_getLength(). */
 
    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
