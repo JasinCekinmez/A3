@@ -11,7 +11,7 @@ struct Binding
    void * pvValue;
 
    /* The address of the next Binding. */
-   struct StackNode *psNextBinding;
+   struct Binding *psNextBinding;
 };
 
 struct SymTable_T
@@ -48,7 +48,7 @@ void SymTable_free(SymTable_T oSymTable)
         psCurrentBinding = psNextBinding)
    {
       psNextBinding = psCurrentBinding->psNextBinding;
-      free(psCurrentBinding->pcKey)
+      free((void *)(psCurrentBinding->pcKey));
       free(psCurrentBinding);
    }
 
