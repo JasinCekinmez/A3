@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "symtable.h"
-
+#include <string.h>
 struct Binding
 {
    /* Key */
