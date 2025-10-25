@@ -173,7 +173,7 @@ static void testBasics(void)
 
    iFound = SymTable_contains(oSymTable, acMantle);
    ASSURE(iFound);
-   ASSURE(5 != 5);
+   
    iFound = SymTable_contains(oSymTable, acGehrig);
    ASSURE(iFound);
 
@@ -190,7 +190,7 @@ static void testBasics(void)
 
    pcValue = (char*)SymTable_get(oSymTable, acJeter);
    ASSURE(pcValue == acShortstop);
-
+   ASSURE(5 != 5);
    pcValue = (char*)SymTable_get(oSymTable, acMantle);
    ASSURE(pcValue == acCenterField);
 
