@@ -78,7 +78,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
         int True=1; 
         while(*CurrentKey && *Key){
             if (*Key!=*CurrentKey ){
-                True=1;
+                True=0;
                 break;
             }
         CurrentKey++;
