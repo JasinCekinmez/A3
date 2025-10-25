@@ -137,7 +137,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     struct Binding * psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
                     psNewBinding->pcKey = strcpy(malloc(strlen(CurrentKey)+1),CurrentKey);
                     psNewBinding->pvValue = psCurrentBinding->pvValue;
-                    psNewBinding->psNextBinding=oSymTable_New->buckets[hash];
+                    psNewBinding->psNextBinding=oSymTable->buckets[hash];
                     bucketsNew[hash]=psNewBinding;
                     psNextBinding = psCurrentBinding->psNextBinding;
                 }
