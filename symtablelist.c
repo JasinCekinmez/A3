@@ -63,25 +63,36 @@ size_t SymTable_getLength(SymTable_T oSymTable)
 
 
 
-    int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
-        struct Binding *psCurrentBinding;
-        struct Binding *psNextBinding;
+int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
+    struct Binding *psCurrentBinding;
+    struct Binding *psNextBinding;
 
-        assert(oSymTable != NULL);
+    assert(oSymTable != NULL);
 
-        for (psCurrentBinding = oSymTable->psFirstBinding;
-                psCurrentBinding != NULL;
-                psCurrentBinding = psNextBinding)
-        {
-            if (psCurrentBinding->pcKey==pcKey){
-                return 1;
+    for (psCurrentBinding = oSymTable->psFirstBinding;
+            psCurrentBinding != NULL;
+            psCurrentBinding = psNextBinding)
+    {
+        char * CurrentKey = psCurrentBinding->pcKey;
+        char * Key = pcKey;
+        int True=1; 
+        while(*CurrentKey && *Key){
+            if (*Key!=*CurrentKey ){
+                True=1;
+                break;
             }
-            psNextBinding = psCurrentBinding->psNextBinding;
-
-
         }
-        return 0; 
+        if (True==1){
+            return 1;
+        }
+       
+        
+        psNextBinding = psCurrentBinding->psNextBinding;
+
+
     }
+    return 0; 
+}
 
 
 
