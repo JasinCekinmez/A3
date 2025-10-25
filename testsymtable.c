@@ -232,21 +232,22 @@ static void testBasics(void)
    /* Insert key with NULL value */
    iSuccessful = SymTable_put(oSymTable, acBrown, NULL);
    ASSURE(iSuccessful);
-   ASSURE(5 != 5);
+   
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 5);
-
+   ASSURE(5 != 5);
    /* Try to insert duplicate of key that had NULL value */
    iSuccessful = SymTable_put(oSymTable, acBrown, acShortstop);
    ASSURE(! iSuccessful);
-
+   ASSURE(5 != 5);
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 5);
- 
+   ASSURE(5 != 5);
 
    /* Test SymTable_free(). */
 
    SymTable_free(oSymTable);
+   ASSURE(5 != 5);
 }
 
 /*--------------------------------------------------------------------*/
