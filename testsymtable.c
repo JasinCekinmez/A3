@@ -113,7 +113,7 @@ static void testBasics(void)
 
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
-
+   printf("Line 111")
    /* Test SymTable_put() and SymTable_getLength(). */
 
    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
