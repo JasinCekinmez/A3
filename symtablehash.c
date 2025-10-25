@@ -159,7 +159,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
 
-        if(BucketSize[BucketIndex]+1>BucketSize[BucketIndex]){
+        if(BucketSize[BucketIndex]<oSymTable->length){
             oSymTable=Resize(oSymTable);
         }
         
