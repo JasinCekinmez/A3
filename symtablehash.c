@@ -176,7 +176,7 @@ int SymTable_put(SymTable_T oSymTable,
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
         psNewBinding->pvValue= (void *) pvValue;
         psNewBinding->psNextBinding=oSymTable->buckets[hash];
-        oSymTable->psFirstBinding=psNewBinding;
+        oSymTable->buckets[hash]=psNewBinding;
         oSymTable->length=oSymTable->length+1;
         return 1; 
     }
@@ -185,7 +185,7 @@ void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue){
         struct Binding *psCurrentBinding;
         struct Binding *psNextBinding;
-
+        size_t hash;
         assert(oSymTable != NULL);
         hash= SymTable_hash(pcKey, BucketSize[BucketIndex]);
         for (psCurrentBinding = oSymTable->buckets[hash];
@@ -205,7 +205,7 @@ void *SymTable_replace(SymTable_T oSymTable,
     void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
         struct Binding *psCurrentBinding;
         struct Binding *psNextBinding;
-
+        size_t hash;
         assert(oSymTable != NULL);
         hash= SymTable_hash(pcKey, BucketSize[BucketIndex]);
         for (psCurrentBinding = oSymTable->buckets[hash];
@@ -225,7 +225,7 @@ void *SymTable_replace(SymTable_T oSymTable,
         struct Binding *psCurrentBinding;
         struct Binding *psPreviousBinding;
         struct Binding *psNextBinding;
-
+        size_t hash;
         assert(oSymTable != NULL);
         hash= SymTable_hash(pcKey, BucketSize[BucketIndex]);
         psCurrentBinding=oSymTable->buckets[hash];
@@ -270,6 +270,7 @@ void *SymTable_replace(SymTable_T oSymTable,
             struct Binding *psCurrentBinding;
             assert(oSymTable != NULL);
             assert(pfApply != NULL);
+            size_t i; 
             for (i=0; i<BucketSize[BucketIndex]; i++)
                 for (psCurrentBinding = oSymTable->buckets[i];
                     psCurrentBinding != NULL;
