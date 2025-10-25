@@ -51,7 +51,7 @@ SymTable_T SymTable_new(void)
    if (oSymTable == NULL)
       return NULL;
 
-   oSymTable->buckets = (struct Binding *) calloc(BucketSize[BucketIndex],sizeof(struct Binding));
+   oSymTable->buckets = (struct Binding [] *) calloc(BucketSize[BucketIndex],sizeof(struct Binding));
    oSymTable->length = 0;
    oSymTable->BucketSize=BucketSize[BucketIndex];
    return oSymTable;
