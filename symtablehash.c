@@ -115,9 +115,10 @@ static SymTable_T Resize(SymTable_T oSymTable){
     struct Binding *psCurrentBinding;
     struct Binding *psNextBinding;
     size_t i;
+    SymTable_T oSymTable_New;
     BucketIndex=BucketIndex+1;
 
-    SymTable_T oSymTable_New;
+    
 
     oSymTable_New = (SymTable_T)malloc(sizeof(struct SymTable_T));
     if (oSymTable_New == NULL)
