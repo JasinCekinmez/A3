@@ -73,18 +73,8 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
             psCurrentBinding != NULL;
             psCurrentBinding = psNextBinding)
     {
-        char * CurrentKey = (char*) psCurrentBinding->pcKey;
-        char * Key =(char*) pcKey;
-        int True=1; 
-        while(*CurrentKey && *Key){
-            if (*Key!=*CurrentKey ){
-                True=0;
-                break;
-            }
-        CurrentKey++;
-        Key++;
-        }
-        if (True==1){
+        
+        if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             return 1;
         }
        
@@ -134,7 +124,7 @@ int SymTable_put(SymTable_T oSymTable,
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding)
         {
-            if (psCurrentBinding->pcKey==pcKey){
+            if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
                void * temp = psCurrentBinding->pvValue;
                psCurrentBinding->pvValue= (void *) pvValue;
                return temp; 
@@ -154,18 +144,8 @@ int SymTable_put(SymTable_T oSymTable,
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding)
         {
-            char * CurrentKey = (char*) psCurrentBinding->pcKey;
-            char * Key =(char*) pcKey;
-            int True=1; 
-            while(*CurrentKey && *Key){
-                if (*Key!=*CurrentKey ){
-                    True=0;
-                    break;
-                }
-            CurrentKey++;
-            Key++;
-            }
-            if (True==1){
+            
+            if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
                 return psCurrentBinding->pvValue;
             }
                 psNextBinding = psCurrentBinding->psNextBinding;
