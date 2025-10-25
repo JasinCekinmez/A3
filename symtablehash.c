@@ -3,7 +3,7 @@
 #include "symtable.h"
 #include <string.h>
 
-static const int BucketSize[]=[509, 1021, 2039, 4093, 8191, 16381, 32749, 65521];
+static const int BucketSize[]={509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
 static int BucketIndex = 0;
 struct Binding
 {
