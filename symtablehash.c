@@ -121,7 +121,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
 
     
 
-    bucketsNew = (struct Binding *)calloc(BucketSize[BucketIndex],sizeof(struct Binding));
+    bucketsNew = (struct Binding **)calloc(BucketSize[BucketIndex],sizeof(struct Binding));
     if (bucketsNew == NULL)
         return NULL;
 
