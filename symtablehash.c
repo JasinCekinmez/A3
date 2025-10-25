@@ -156,6 +156,7 @@ int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue){
 
         struct Binding *psNewBinding;
+        size_t hash;
 
         assert(oSymTable != NULL);
 
@@ -170,7 +171,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         if (psNewBinding == NULL)
             return 0;
-        size_t hash = SymTable_hash(pcKey, BucketSize[BucketIndex])
+        hash = SymTable_hash(pcKey, BucketSize[BucketIndex])
 
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
         psNewBinding->pvValue= (void *) pvValue;
