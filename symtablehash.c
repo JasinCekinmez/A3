@@ -134,7 +134,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding){
                     const char * CurrentKey=psCurrentBinding->pcKey;
-                    size_t hash=SymTable_hash(CurrentKey, BucketSize[BucketIndex])
+                    size_t hash=SymTable_hash(CurrentKey, BucketSize[BucketIndex]);
                     struct Binding * psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
                     psNewBinding->pcKey = strcpy(malloc(strlen(CurrentKey)+1),CurrentKey);
                     psNewBinding->pvValue = psCurrentBinding->pvValue;
