@@ -268,9 +268,9 @@ void *SymTable_replace(SymTable_T oSymTable,
         void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
         const void *pvExtra){
             struct Binding *psCurrentBinding;
+            size_t i;
             assert(oSymTable != NULL);
             assert(pfApply != NULL);
-            size_t i; 
             for (i=0; i<BucketSize[BucketIndex]; i++)
                 for (psCurrentBinding = oSymTable->buckets[i];
                     psCurrentBinding != NULL;
