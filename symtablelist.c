@@ -176,7 +176,7 @@ int SymTable_put(SymTable_T oSymTable,
                 psPreviousBinding = psCurrentBinding)
         {
             psCurrentBinding = psCurrentBinding->psNextBinding;
-            if (psCurrentBinding->pcKey==pcKey){
+            if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
                void * temp = psCurrentBinding->pvValue;
                psNextBinding=psCurrentBinding->psNextBinding;
                free((void *) (psCurrentBinding->pcKey));
