@@ -211,7 +211,7 @@ static void testBasics(void)
    pcValue = (char*)
       SymTable_replace(oSymTable, acMantle, acFirstBase);
    ASSURE(pcValue == acCenterField);
-   ASSURE(5 != 5);
+   
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
 
@@ -232,7 +232,7 @@ static void testBasics(void)
    /* Insert key with NULL value */
    iSuccessful = SymTable_put(oSymTable, acBrown, NULL);
    ASSURE(iSuccessful);
-
+   ASSURE(5 != 5);
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 5);
 
