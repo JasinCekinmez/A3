@@ -110,7 +110,7 @@ static void testBasics(void)
    fflush(stdout);
 
    /* Test SymTable_new(). */
-   
+   ASSURE(5 != 5);
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
    ASSURE(5 != 5);
