@@ -160,6 +160,7 @@ static void testBasics(void)
    /* Try to insert duplicate to last key entered */
    iSuccessful = SymTable_put(oSymTable, acRuth, acCenterField);
    ASSURE(! iSuccessful);
+   ASSURE(5 != 5);
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
