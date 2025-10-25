@@ -26,7 +26,7 @@ struct SymTable_T
    size_t BucketSize;
 
    
-   struct Binding *buckets[BucketSize[BucketIndex]];
+   struct Binding *buckets[];
 };
 
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
@@ -51,7 +51,7 @@ SymTable_T SymTable_new(void)
    if (oSymTable == NULL)
       return NULL;
 
-   oSymTable->buckets = (struct Binding * []) calloc(BucketSize[BucketIndex],sizeof(struct Binding));
+   oSymTable->buckets = (struct Binding *) calloc(BucketSize[BucketIndex],sizeof(struct Binding));
    oSymTable->length = 0;
    oSymTable->BucketSize=BucketSize[BucketIndex];
    return oSymTable;
@@ -115,18 +115,17 @@ static SymTable_T Resize(SymTable_T oSymTable){
     struct Binding *psCurrentBinding;
     struct Binding *psNextBinding;
     size_t i;
-    SymTable_T oSymTable_New;
+    struct Binding *bucketsNew[];
+    struct Binding *bucketsOld[];
     BucketIndex=BucketIndex+1;
 
     
 
-    oSymTable_New = (SymTable_T)malloc(sizeof(struct SymTable_T));
-    if (oSymTable_New == NULL)
+    bucketsNew = (struct Binding *)calloc(BucketSize[BucketIndex],sizeof(struct Binding));
+    if (bucketsNew == NULL)
         return NULL;
 
-    oSymTable_New->buckets = (struct Binding *) calloc(BucketSize[BucketIndex],sizeof(struct Binding));
-    oSymTable_New->length = oSymTable->length;
-    oSymTable_New->BucketSize=BucketSize[BucketIndex];
+    
     
     
     for (i=0; i<BucketSize[BucketIndex-1]; i++)
@@ -139,13 +138,14 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNewBinding->pcKey = strcpy(malloc(strlen(CurrentKey)+1),CurrentKey);
                     psNewBinding->pvValue = psCurrentBinding->pvValue;
                     psNewBinding->psNextBinding=oSymTable_New->buckets[hash];
-                    oSymTable_New->buckets[hash]=psNewBinding;
+                    bucketsNew[hash]=psNewBinding;
                     psNextBinding = psCurrentBinding->psNextBinding;
                 }
-        
     
-    
-    free(oSymTable);
+    oSymTable_New->buckets=bucketsOld;
+    free(bucketsOld);
+    oSymTable_New->buckets=bucketsNew;
+    oSymTable_New->BucketSize=BucketSize[BucketIndex];*
     oSymTable=oSymTable_New;
     return oSymTable_New;
 
