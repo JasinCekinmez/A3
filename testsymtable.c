@@ -110,14 +110,15 @@ static void testBasics(void)
    fflush(stdout);
 
    /* Test SymTable_new(). */
-   ASSURE(5 != 5);
+   
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
-   ASSURE(5 != 5);
+   
    /* Test SymTable_put() and SymTable_getLength(). */
 
    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
    ASSURE(iSuccessful);
+   ASSURE(5 != 5);
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 1);
