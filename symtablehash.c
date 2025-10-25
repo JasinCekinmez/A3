@@ -26,7 +26,7 @@ struct SymTable_T
    size_t BucketSize;
 
    
-   struct Binding *buckets[];
+   struct Binding **buckets[];
 };
 
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
