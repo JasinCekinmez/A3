@@ -73,14 +73,16 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
             psCurrentBinding != NULL;
             psCurrentBinding = psNextBinding)
     {
-        char * CurrentKey = psCurrentBinding->pcKey;
-        char * Key = pcKey;
+        char * CurrentKey = (char*) psCurrentBinding->pcKey;
+        char * Key =(char*) pcKey;
         int True=1; 
         while(*CurrentKey && *Key){
             if (*Key!=*CurrentKey ){
                 True=1;
                 break;
             }
+        CurrentKey++;
+        Key++;
         }
         if (True==1){
             return 1;
