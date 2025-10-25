@@ -154,10 +154,21 @@ int SymTable_put(SymTable_T oSymTable,
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding)
         {
-            if (psCurrentBinding->pcKey==pcKey){
-               return psCurrentBinding->pvValue;
+            char * CurrentKey = (char*) psCurrentBinding->pcKey;
+            char * Key =(char*) pcKey;
+            int True=1; 
+            while(*CurrentKey && *Key){
+                if (*Key!=*CurrentKey ){
+                    True=0;
+                    break;
+                }
+            CurrentKey++;
+            Key++;
             }
-            psNextBinding = psCurrentBinding->psNextBinding;
+            if (True==1){
+                return psCurrentBinding->pvValue;
+            }
+                psNextBinding = psCurrentBinding->psNextBinding;
         }
         return NULL;
     }
