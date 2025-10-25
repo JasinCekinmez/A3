@@ -190,7 +190,7 @@ static void testBasics(void)
 
    pcValue = (char*)SymTable_get(oSymTable, acJeter);
    ASSURE(pcValue == acShortstop);
-   ASSURE(5 != 5);
+   
    pcValue = (char*)SymTable_get(oSymTable, acMantle);
    ASSURE(pcValue == acCenterField);
 
@@ -211,7 +211,7 @@ static void testBasics(void)
    pcValue = (char*)
       SymTable_replace(oSymTable, acMantle, acFirstBase);
    ASSURE(pcValue == acCenterField);
-
+   ASSURE(5 != 5);
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
 
