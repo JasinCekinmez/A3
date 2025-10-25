@@ -122,31 +122,40 @@ static void testBasics(void)
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 1);
+   ASSURE(5 != 5);
 
    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
    ASSURE(iSuccessful);
+   ASSURE(5 != 5);
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 2);
+   ASSURE(5 != 5);
 
    iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
    ASSURE(iSuccessful);
+   ASSURE(5 != 5);
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 3);
+   ASSURE(5 != 5);
 
    iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
    ASSURE(iSuccessful);
+   ASSURE(5 != 5);
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
+   ASSURE(5 != 5);
 
    /* Try to insert duplicate to first key entered */
    iSuccessful = SymTable_put(oSymTable, acJeter, acCenterField);
    ASSURE(! iSuccessful);
+   ASSURE(5 != 5);
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
+   ASSURE(5 != 5);
 
    /* Try to insert duplicate to last key entered */
    iSuccessful = SymTable_put(oSymTable, acRuth, acCenterField);
