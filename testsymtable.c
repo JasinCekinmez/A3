@@ -925,6 +925,7 @@ static void testLargeTable(int iBindingCount)
    /* Make sure oSymTableSmall hasn't been corrupted by expansion
       of oSymTable. */
    pcValue = (char*)SymTable_get(oSymTableSmall, "xxx");
+   printf("uh oh!\n");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
    pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
