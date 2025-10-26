@@ -1,4 +1,4 @@
-?/* Symbol table hash table implementation*/
+/* Symbol table hash table implementation*/
 #include <assert.h>
 #include <stdlib.h>
 #include "symtable.h"
