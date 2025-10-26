@@ -129,7 +129,7 @@ static void Resize(SymTable_T oSymTable){
     size_t hash;
     oSymTable->BucketIndex=(oSymTable->BucketIndex)+1;
     oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
-    bucketsNew = (struct Binding **)calloc(oSymTable->BucketSize,sizeof(struct Binding*));
+    bucketsNew = calloc(oSymTable->BucketSize,sizeof(struct Binding*));
     if (bucketsNew == NULL)
         return;
     
