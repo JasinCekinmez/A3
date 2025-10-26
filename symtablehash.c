@@ -172,7 +172,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
         if(psNewBinding->pcKey==NULL){
-            free(psNewBinding->pcKey);
+            free((char *) psNewBinding->pcKey);
         }
         psNewBinding->pvValue= (void *) pvValue;
         psNewBinding->psNextBinding=oSymTable->buckets[hash];
