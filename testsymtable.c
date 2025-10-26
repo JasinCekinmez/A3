@@ -874,6 +874,7 @@ static void testLargeTable(int iBindingCount)
    /* Get the middle binding -- if there is one. */
    if (iSmall == iLarge)
    {
+      printf("true\n");
       sprintf(acKey, "%d", iSmall);
       pcValue = (char*)SymTable_get(oSymTable, acKey);
       ASSURE(pcValue != NULL);
