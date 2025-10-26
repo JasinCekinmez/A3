@@ -141,8 +141,8 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNewBinding->psNextBinding=oSymTable->buckets[hash];
                     bucketsNew[hash]=psNewBinding;
                     psNextBinding = psCurrentBinding->psNextBinding;
-                    free((void *)(psCurrentBinding->pcKey));
-                    free(psCurrentBinding);
+                    /*free((void *)(psCurrentBinding->pcKey));
+                    free(psCurrentBinding);*/
                 }
     
     bucketsOld=oSymTable->buckets;       
