@@ -4,7 +4,7 @@
 #include <string.h>
 
 static const size_t BucketSize[]={509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
-static int BucketIndex = 0;
+/*static int BucketIndex = 0;*/
 struct Binding
 {
    /* Key */
@@ -24,6 +24,8 @@ struct SymTable_T
    size_t length; 
 
    size_t BucketSize;
+
+   size_t BucketIndex;
 
    
    struct Binding **buckets;
@@ -53,7 +55,8 @@ SymTable_T SymTable_new(void)
 
    oSymTable->buckets = (struct Binding **) calloc(BucketSize[BucketIndex],sizeof(struct Binding*));
    oSymTable->length = 0;
-   oSymTable->BucketSize=BucketSize[BucketIndex];
+   oSymTable->BucketIndex=0;
+   oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
    return oSymTable;
 }
 
@@ -119,17 +122,18 @@ static void Resize(SymTable_T oSymTable){
     struct Binding **bucketsOld;
     size_t hash;
     struct Binding * temp;
-    BucketIndex=BucketIndex+1;
-    bucketsNew = (struct Binding **)calloc(BucketSize[BucketIndex],sizeof(struct Binding*));
+    oSymTable->BucketIndex=oSymTable->BucketIndex+1;
+    oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex]
+    bucketsNew = (struct Binding **)calloc(oSymTable->BucketSize,sizeof(struct Binding*));
     if (bucketsNew == NULL)
         return;
     
-    for (i=0; i<BucketSize[BucketIndex-1]; i++)
+    for (i=0; i<BucketSize[oSymTable->BucketIndex-1]; i++)
         for (psCurrentBinding = oSymTable->buckets[i];
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding){
                     psNextBinding = psCurrentBinding->psNextBinding;
-                    hash = SymTable_hash(psCurrentBinding->pcKey, BucketSize[BucketIndex]);
+                    hash = SymTable_hash(psCurrentBinding->pcKey, oSymTable->BucketIndex);
                     psCurrentBinding->psNextBinding = bucketsNew[hash];
                     bucketsNew[hash] = psCurrentBinding;
                     /*temp = bucketsNew[hash]->psNextBinding;*/
@@ -140,7 +144,6 @@ static void Resize(SymTable_T oSymTable){
     bucketsOld=oSymTable->buckets;
     free(bucketsOld);
     oSymTable->buckets=bucketsNew;
-    oSymTable->BucketSize=BucketSize[BucketIndex];
 }
 
 int SymTable_put(SymTable_T oSymTable,
@@ -151,7 +154,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
 
-        if(BucketSize[BucketIndex]<oSymTable->length && oSymTable->length<65521){
+        if(oSymTable->BucketSize<oSymTable->length && oSymTable->length<65521){
             Resize(oSymTable);
             printf("resized");
         }
@@ -179,7 +182,7 @@ void *SymTable_replace(SymTable_T oSymTable,
         struct Binding *psNextBinding;
         size_t hash;
         assert(oSymTable != NULL);
-        hash= SymTable_hash(pcKey, BucketSize[BucketIndex]);
+        hash= SymTable_hash(pcKey, oSymTable->length);
         for (psCurrentBinding = oSymTable->buckets[hash];
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding)
@@ -199,7 +202,7 @@ void *SymTable_replace(SymTable_T oSymTable,
         struct Binding *psNextBinding;
         size_t hash;
         assert(oSymTable != NULL);
-        hash= SymTable_hash(pcKey, BucketSize[BucketIndex]);
+        hash= SymTable_hash(pcKey, oSymTable->length);
         for (psCurrentBinding = oSymTable->buckets[hash];
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding)
@@ -219,7 +222,7 @@ void *SymTable_replace(SymTable_T oSymTable,
         struct Binding *psNextBinding;
         size_t hash;
         assert(oSymTable != NULL);
-        hash= SymTable_hash(pcKey, BucketSize[BucketIndex]);
+        hash= SymTable_hash(pcKey, oSymTable->length);
         psCurrentBinding=oSymTable->buckets[hash];
         if(psCurrentBinding==NULL)
             return NULL;

@@ -863,24 +863,15 @@ static void testLargeTable(int iBindingCount)
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iLarge--;
       printf("iLarge: %d\n", iLarge);
-      if (iSmall < iLarge){
-         printf("Still smaller\n");
-      }
-      else{
-         printf("now larger!\n");
-      }
    }
-   printf("escaped\n");
    /* Get the middle binding -- if there is one. */
    if (iSmall == iLarge)
    {
-      printf("true\n");
       sprintf(acKey, "%d", iSmall);
       pcValue = (char*)SymTable_get(oSymTable, acKey);
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
    }
-   printf("middle\n");
    /* Remove each binding. Also free each binding's value. */
    iSmall = 0;
    iLarge = iBindingCount - 1;
@@ -907,7 +898,6 @@ static void testLargeTable(int iBindingCount)
       ASSURE(uLength2 == uLength);
       iLarge--;
    }
-   printf("escaped\n");
    /* Remove the middle binding -- if there is one. */
    if (iSmall == iLarge)
    {
@@ -920,16 +910,15 @@ static void testLargeTable(int iBindingCount)
       uLength2 = SymTable_getLength(oSymTable);
       ASSURE(uLength2 == uLength);  
    }
-   printf("escaped2\n");
 
    /* Make sure oSymTableSmall hasn't been corrupted by expansion
       of oSymTable. */
-   /*
+   
    pcValue = (char*)SymTable_get(oSymTableSmall, "xxx");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
    pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
-   */
+   
    
    /* Free both SymTable objects. */
    SymTable_free(oSymTable);
