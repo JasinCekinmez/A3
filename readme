@@ -2,6 +2,7 @@ Assignment 3 readme File
 
 ------------------------------------------------------------------------
 What is your name?
+Jasin Cekinmez
 
 
 
@@ -12,7 +13,9 @@ in the "Policies" web page (also available on armlab in the file
 ~cos217/AuthorizedSourcesList ) to this section of the readme file,
 and edit it as appropriate.
 
-
+COS 217 lecture materials. 
+COS 217 precept materials.
+COS 217 website.
 
 ------------------------------------------------------------------------
 What unauthorized sources of information did you use to complete the
@@ -26,6 +29,7 @@ interaction, may additionally require the interaction being reported
 to the Committee on Discipline. Write "None" if you used no
 unauthorized sources of information.
 
+None
 
 
 ------------------------------------------------------------------------
@@ -36,6 +40,8 @@ enter your name in the space below the following affirmation:
 This paper represents my own work in accordance with University
 regulations.
 
+Jasin Cekinmez 
+
 
 
 ------------------------------------------------------------------------
@@ -44,10 +50,13 @@ Regulations in Princeton's Rights, Rules, Responsibilities guide,
 and the COS 217 Generative AI policy, disclose and describe how you
 used AI in completing this assignment:
 
-
+Didn't use
 
 ------------------------------------------------------------------------
 What is your assessment of the assignment? Was it helpful? Was it fun?
+
+I would say this assignment was pretty good it really sharpened my skills
+dynamic memory management. Definitely helpful and fun!
 
 
 
@@ -97,11 +106,11 @@ implementation, (2) your non-expanding hash table implementation, and
 (3) your expanding hash table implementation? Fill in the blanks.
 
 The linked list implementation with:
--- 50 bindings consumed ________ seconds.
--- 500 bindings consumed ________ seconds.
--- 5000 bindings consumed ________ seconds.
--- 50000 bindings consumed ________ seconds.
--- 500000 bindings consumed ________ seconds.
+-- 50 bindings consumed 0 seconds.
+-- 500 bindings consumed 0 seconds.
+-- 5000 bindings consumed 0.159962 seconds.
+-- 50000 bindings consumed 21.618241 seconds.
+-- 500000 bindings consumed More than 5 minutes.
 
 The non-expanding hash table implementation with:
 -- 50 bindings consumed ________ seconds.
@@ -111,8 +120,8 @@ The non-expanding hash table implementation with:
 -- 500000 bindings consumed ________ seconds.
 
 The expanding hash table implementation with:
--- 50 bindings consumed ________ seconds.
--- 500 bindings consumed ________ seconds.
--- 5000 bindings consumed ________ seconds.
--- 50000 bindings consumed ________ seconds.
--- 500000 bindings consumed ________ seconds.
+-- 50 bindings consumed 0 seconds.
+-- 500 bindings consumed 0 seconds.
+-- 5000 bindings consumed 0 seconds.
+-- 50000 bindings consumed 0.028258 seconds.
+-- 500000 bindings consumed 0.423473seconds.
