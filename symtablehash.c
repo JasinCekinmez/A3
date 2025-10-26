@@ -1,3 +1,4 @@
+?/* Symbol table hash table implementation*/
 #include <assert.h>
 #include <stdlib.h>
 #include "symtable.h"
@@ -40,7 +41,9 @@ struct SymTable
    struct Binding **buckets;
 };
 
-/* Hash Function used to get the corresponding bucket*/
+/* Hash Function used to get the corresponding bucket
+takes in const char *pcKey and size_t uBucketCount 
+and returns the corresponding  size_t hash*/
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
    const size_t HASH_MULTIPLIER = 65599;

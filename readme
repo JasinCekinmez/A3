@@ -81,17 +81,28 @@ What warnings does critTer generate on symtablelist.c, and what are your
 disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
- symtablelist.c: line 95: medium priority:
+  symtablelist.c: line 97: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablelist.c: line 97: medium priority:
    Do you want to validate 'pvValue' through an assert?
 
-   symtablelist.c: line 127: medium priority:
+   symtablelist.c: line 128: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablelist.c: line 128: medium priority:
    Do you want to validate 'pvValue' through an assert?
 
-   symtablelist.c: line 221: medium priority:
+   symtablelist.c: line 149: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablelist.c: line 169: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablelist.c: line 219: medium priority:
    Do you want to validate 'pvExtra' through an assert?
-   I disagree because pvValue can be NULL it's only the case
-   that the key has to not be NULL by definition of symbol table 
-
+I disagree with these since key and value can be NULL, so can Extra 
+since it's optional
 
 
 ------------------------------------------------------------------------
