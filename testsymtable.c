@@ -840,7 +840,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(iSuccessful);
       uLength = SymTable_getLength(oSymTable);
       ASSURE(uLength == (size_t)(i+1));
-      printf("uLength is %zu\n", uLength);
+      
    }
 
    /* Get each binding's value, and make sure that it contains
@@ -855,14 +855,14 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iSmall++;
-      printf("iSmall: %d\n", iSmall);
+      
       /* Get the largest of the remaining bindings. */
       sprintf(acKey, "%d", iLarge);
       pcValue = (char*)SymTable_get(oSymTable, acKey);
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iLarge--;
-      printf("iLarge: %d\n", iLarge);
+      
    }
    /* Get the middle binding -- if there is one. */
    if (iSmall == iLarge)
