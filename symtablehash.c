@@ -152,7 +152,6 @@ int SymTable_put(SymTable_T oSymTable,
 
         struct Binding *psNewBinding;
         size_t hash;
-        char * dest;
 
         assert(oSymTable != NULL);
 
@@ -171,12 +170,6 @@ int SymTable_put(SymTable_T oSymTable,
         }
         hash = SymTable_hash(pcKey, oSymTable->BucketSize);
 
-        /*psNewBinding->pcKey=malloc(strlen(pcKey)+1);
-        if (psNewBinding->pcKey==NULL){
-            free(psNewBinding);
-            return 0;
-        }
-        strcpy(psNewBinding->pcKey,pcKey);*/
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
         if (psNewBinding->pcKey==NULL){
             free(psNewBinding);
