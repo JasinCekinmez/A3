@@ -892,7 +892,6 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       free(pcValue);
-      printf("yay!\n");
       uLength--;
       uLength2 = SymTable_getLength(oSymTable);
       ASSURE(uLength2 == uLength);
@@ -903,7 +902,6 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       free(pcValue);
-      printf("yay!\n");
       uLength--;
       uLength2 = SymTable_getLength(oSymTable);
       ASSURE(uLength2 == uLength);
@@ -922,6 +920,7 @@ static void testLargeTable(int iBindingCount)
       uLength2 = SymTable_getLength(oSymTable);
       ASSURE(uLength2 == uLength);  
    }
+   printf("escaped2\n");
 
    /* Make sure oSymTableSmall hasn't been corrupted by expansion
       of oSymTable. */
