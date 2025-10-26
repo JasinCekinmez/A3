@@ -811,6 +811,7 @@ static void testLargeTable(int iBindingCount)
    printf("------------------------------------------------------\n");
    printf("Testing a potentially large SymTable object.\n");
    printf("No output except CPU time consumed should appear here:\n");
+   printf("%d", iBindingCount);
    fflush(stdout);
    
    /* Note the current time. */
