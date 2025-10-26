@@ -173,7 +173,7 @@ int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue){
         struct Binding *psNewBinding;
         size_t hash;
-        size_t bucketMax; 
+        const size_t bucketMax; 
         assert(oSymTable != NULL);
 
         /* If the current number of bindings is greater than the current number

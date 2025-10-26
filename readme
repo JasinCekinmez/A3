@@ -110,7 +110,7 @@ What warnings does splint generate on symtablehash.c, and what are your
 disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
-
+None
 
 
 ------------------------------------------------------------------------
@@ -118,6 +118,34 @@ What warnings does critTer generate on symtablehash.c, and what are your
 disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
+
+   symtablehash.c: line 111: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablehash.c: line 173: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablehash.c: line 173: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+
+   symtablehash.c: line 210: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablehash.c: line 210: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+
+   symtablehash.c: line 233: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablehash.c: line 255: medium priority:
+   Do you want to validate 'pcKey' through an assert?
+
+   symtablehash.c: line 308: medium priority:
+   Do you want to validate 'pvExtra' through an assert?
+
+   symtablehash.c: line 181: high priority: 
+   Use of magic number (65521), which should be given a meaningful name
+I disagree with the asserts as explained above, plus I already define 
 
 
 
