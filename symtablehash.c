@@ -117,15 +117,17 @@ static void Resize(SymTable_T oSymTable){
     size_t i;
     struct Binding **bucketsNew;
     struct Binding **bucketsOld;
+    size_t hash;
     BucketIndex=BucketIndex+1;
     bucketsNew = (struct Binding **)calloc(BucketSize[BucketIndex],sizeof(struct Binding));
     if (bucketsNew == NULL)
-        return NULL;
+        return;
     
     for (i=0; i<BucketSize[BucketIndex-1]; i++)
         for (psCurrentBinding = oSymTable->buckets[i];
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding){
+                    hash = SymTable_hash(pcKey, BucketSize[BucketIndex]);
                     struct Binding * temp = bucketsNew[hash]->psNextBinding;
                     bucketsNew[hash]=psCurrentBinding;
                     bucketsNew[hash]->psNextBinding=temp;
@@ -145,7 +147,7 @@ int SymTable_put(SymTable_T oSymTable,
         assert(oSymTable != NULL);
 
         if(BucketSize[BucketIndex]<oSymTable->length && oSymTable->length<65521){
-            oSymTable=Resize(oSymTable);
+            Resize(oSymTable);
         }
         
         if (SymTable_contains(oSymTable, pcKey)==1)
