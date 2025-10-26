@@ -43,6 +43,9 @@ void SymTable_free(SymTable_T oSymTable)
 
    assert(oSymTable != NULL);
 
+   /* Runs through the entire linked list 
+   and frees all the dynamically allocated keys and 
+   the binding object*/
    for (psCurrentBinding = oSymTable->psFirstBinding;
         psCurrentBinding != NULL;
         psCurrentBinding = psNextBinding)
@@ -57,6 +60,7 @@ void SymTable_free(SymTable_T oSymTable)
 
 size_t SymTable_getLength(SymTable_T oSymTable)
 {
+    assert(oSymTable != NULL);
     return oSymTable->length;
 }
 
@@ -69,6 +73,9 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
 
     assert(oSymTable != NULL);
 
+    /* Loops through the entire linked list and checks
+    if any of the keys match the key passed in
+    */
     for (psCurrentBinding = oSymTable->psFirstBinding;
             psCurrentBinding != NULL;
             psCurrentBinding = psNextBinding)
@@ -97,6 +104,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
 
+        /* Makes sure not to add a binding with the same key*/
         if (SymTable_contains(oSymTable, pcKey)==1)
             return 0;
         
@@ -105,7 +113,12 @@ int SymTable_put(SymTable_T oSymTable,
         if (psNewBinding == NULL)
             return 0;
 
+        /* Creates a new binding */
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
+        if (psNewBinding->pcKey==NULL){
+            free(psNewBinding);
+            return 0;
+        }
         psNewBinding->pvValue= (void *) pvValue;
         psNewBinding->psNextBinding=oSymTable->psFirstBinding;
         oSymTable->psFirstBinding=psNewBinding;
