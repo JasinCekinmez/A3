@@ -140,8 +140,13 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNewBinding->psNextBinding=oSymTable->buckets[hash];
                     bucketsNew[hash]=psNewBinding;
                     
-
+                    if (psCurrentBinding->pcKey==0){
+                        break;
+                    }
+                    
                     psNextBinding = psCurrentBinding->psNextBinding;
+                    free((void *)(psCurrentBinding->pcKey));
+                    free(psCurrentBinding);
                  
                    }
     
