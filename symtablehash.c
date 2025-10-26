@@ -114,6 +114,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
 
 static SymTable_T Resize(SymTable_T oSymTable){
     struct Binding *psCurrentBinding;
+    struct Binding *psNextBinding;
     size_t i;
     struct Binding **bucketsNew;
     struct Binding **bucketsOld;
@@ -131,7 +132,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
     for (i=0; i<BucketSize[BucketIndex-1]; i++)
         for (psCurrentBinding = oSymTable->buckets[i];
                 psCurrentBinding != NULL;
-                psCurrentBinding = psCurrentBinding->psNextBinding){
+                psCurrentBinding = psNextBinding){
                     const char * CurrentKey=psCurrentBinding->pcKey;
                     size_t hash=SymTable_hash(CurrentKey, BucketSize[BucketIndex]);
                     struct Binding * psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
@@ -139,6 +140,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNewBinding->pvValue = psCurrentBinding->pvValue;
                     psNewBinding->psNextBinding=oSymTable->buckets[hash];
                     bucketsNew[hash]=psNewBinding;
+                    psNextBinding = psCurrentBinding->psNextBinding;
                     free((void *)(psCurrentBinding->pcKey));
                     free(psCurrentBinding);
                 }
