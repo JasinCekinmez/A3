@@ -139,6 +139,8 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNewBinding->pvValue = psCurrentBinding->pvValue;
                     psNewBinding->psNextBinding=oSymTable->buckets[hash];
                     bucketsNew[hash]=psNewBinding;
+                    free((void *)(psCurrentBinding->pcKey));
+                    free(psCurrentBinding);
                 }
     
     bucketsOld=oSymTable->buckets;       
@@ -158,7 +160,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
 
-        if(BucketSize[BucketIndex]<oSymTable->length){
+        if(BucketSize[BucketIndex]<oSymTable->length && oSymTable->length<65521){
             oSymTable=Resize(oSymTable);
         }
         
