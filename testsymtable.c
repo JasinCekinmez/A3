@@ -909,7 +909,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(uLength2 == uLength);  
    }
 
-   print("hello") /*REMOVE THIS*/
+   printf("hello"); /*REMOVE THIS*/
 
    /* Make sure oSymTableSmall hasn't been corrupted by expansion
       of oSymTable. */
