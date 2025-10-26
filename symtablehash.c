@@ -72,9 +72,7 @@ void SymTable_free(SymTable_T oSymTable)
             psCurrentBinding != NULL;
             psCurrentBinding = psNextBinding)
     {
-        if (psCurrentBinding->pcKey==0){
-            break;
-        }
+       
         
         psNextBinding = psCurrentBinding->psNextBinding;
         free((void *)(psCurrentBinding->pcKey));
@@ -82,6 +80,9 @@ void SymTable_free(SymTable_T oSymTable)
     }
 }
     free(oSymTable->buckets);
+    free(oSymTable->length);
+    free(oSymTable->BucketSize);
+    free(oSymTable->BucketIndex);
     free(oSymTable);
 }
 
@@ -122,7 +123,6 @@ static void Resize(SymTable_T oSymTable){
     struct Binding **bucketsNew;
     struct Binding **bucketsOld;
     size_t hash;
-    struct Binding * temp;
     oSymTable->BucketIndex=(oSymTable->BucketIndex)+1;
     oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
     bucketsNew = (struct Binding **)calloc(oSymTable->BucketSize,sizeof(struct Binding*));
@@ -137,10 +137,6 @@ static void Resize(SymTable_T oSymTable){
                     hash = SymTable_hash(psCurrentBinding->pcKey, oSymTable->BucketSize);
                     psCurrentBinding->psNextBinding = bucketsNew[hash];
                     bucketsNew[hash] = psCurrentBinding;
-                    /*temp = bucketsNew[hash]->psNextBinding;
-                    bucketsNew[hash]=psCurrentBinding;
-                    bucketsNew[hash]->psNextBinding=temp;
-                    psNextBinding = psCurrentBinding->psNextBinding;*/
                 }
     bucketsOld=oSymTable->buckets;
     free(bucketsOld);
