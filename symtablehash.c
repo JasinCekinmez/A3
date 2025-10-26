@@ -50,8 +50,12 @@ SymTable_T SymTable_new(void)
    SymTable_T oSymTable;
 
    oSymTable = (SymTable_T)malloc(sizeof(struct SymTable_T));
-   if (oSymTable == NULL)
-      return NULL;
+   if (oSymTable == NULL){
+    free(oSymTable);
+    return NULL;
+   }
+      
+     
 
    
    oSymTable->length = 0;
@@ -158,6 +162,7 @@ int SymTable_put(SymTable_T oSymTable,
         psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
 
         if (psNewBinding == NULL)
+            free(psNewBinding);
             return 0;
         hash = SymTable_hash(pcKey, oSymTable->BucketSize);
 
