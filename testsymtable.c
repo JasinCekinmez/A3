@@ -863,6 +863,7 @@ static void testLargeTable(int iBindingCount)
       iLarge--;
       printf("tried\n");
    }
+   printf("escaped");
    /* Get the middle binding -- if there is one. */
    if (iSmall == iLarge)
    {
