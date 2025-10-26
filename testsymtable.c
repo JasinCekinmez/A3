@@ -826,7 +826,7 @@ static void testLargeTable(int iBindingCount)
    /* Create oSymTable, the primary SymTable object. */
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
-   printf("hello world\n");
+
    /* Put iBindingCount new bindings into oSymTable.  Each binding's
       key and value contain the same characters. */
    for (i = 0; i < iBindingCount; i++)
@@ -839,6 +839,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(iSuccessful);
       uLength = SymTable_getLength(oSymTable);
       ASSURE(uLength == (size_t)(i+1));
+      printf("hello world\n");
    }
 
    /* Get each binding's value, and make sure that it contains
