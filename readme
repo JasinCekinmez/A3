@@ -72,6 +72,7 @@ What warnings does splint generate on symtablelist.c, and what are your
 disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
+NONE.
 
 
 
@@ -80,6 +81,16 @@ What warnings does critTer generate on symtablelist.c, and what are your
 disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
+ symtablelist.c: line 95: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+
+   symtablelist.c: line 127: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+
+   symtablelist.c: line 221: medium priority:
+   Do you want to validate 'pvExtra' through an assert?
+   I disagree because pvValue can be NULL it's only the case
+   that the key has to not be NULL by definition of symbol table 
 
 
 

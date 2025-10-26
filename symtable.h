@@ -1,3 +1,4 @@
+/* Header File for Symbol Table*/
 #ifndef SYMTABLE_INCLUDED
 #define SYMTABLE_INCLUDED
 #include <stddef.h>
