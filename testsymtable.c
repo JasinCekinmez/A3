@@ -861,7 +861,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iLarge--;
-      printf("tried"\n);
+      printf("tried\n");
    }
    /* Get the middle binding -- if there is one. */
    if (iSmall == iLarge)
