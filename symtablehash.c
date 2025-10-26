@@ -240,7 +240,7 @@ void *SymTable_replace(SymTable_T oSymTable,
             void * temp = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
             free((void *)(psCurrentBinding->pcKey));
-            free( psCurrentBinding);
+            free(psCurrentBinding);
             oSymTable->buckets[hash] = psNextBinding;
             oSymTable->length=oSymTable->length-1;
             return temp;
