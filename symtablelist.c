@@ -14,7 +14,7 @@ struct Binding
    struct Binding *psNextBinding;
 };
 
-struct SymTable
+struct SymTable_T
 {
    /* The number of bindings */
    size_t length; 
@@ -27,7 +27,7 @@ SymTable_T SymTable_new(void)
 {
    SymTable_T oSymTable;
 
-   oSymTable = (SymTable_T)malloc(sizeof(struct SymTable));
+   oSymTable = (SymTable_T)malloc(sizeof(struct SymTable_T));
    if (oSymTable == NULL)
       return NULL;
 
@@ -212,7 +212,6 @@ int SymTable_put(SymTable_T oSymTable,
 
 
     }
-
 
 
 
