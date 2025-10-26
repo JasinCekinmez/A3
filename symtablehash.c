@@ -171,12 +171,12 @@ int SymTable_put(SymTable_T oSymTable,
         }
         hash = SymTable_hash(pcKey, oSymTable->BucketSize);
 
-        dest=malloc(strlen(pcKey)+1);
-        if (dest==NULL){
+        psNewBinding->pcKey=malloc(strlen(pcKey)+1);
+        if (psNewBinding->pcKey==NULL){
             free(psNewBinding);
             return 0;
         }
-        psNewBinding->pcKey=strcpy(dest,pcKey);
+        strcpy(psNewBinding->pcKey,pcKey);
         psNewBinding->pvValue= (void *) pvValue;
         psNewBinding->psNextBinding=oSymTable->buckets[hash];
         oSymTable->buckets[hash]=psNewBinding;
