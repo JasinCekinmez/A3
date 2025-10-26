@@ -880,7 +880,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
    }
-   printf("middle");
+   printf("middle\n");
    /* Remove each binding. Also free each binding's value. */
    iSmall = 0;
    iLarge = iBindingCount - 1;
