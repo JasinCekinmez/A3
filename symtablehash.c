@@ -138,7 +138,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNextBinding = psCurrentBinding->psNextBinding;
                 }
           
-    oSymTableNew=&SymTable_new();
+    oSymTableNew=SymTable_new();
     oSymTableNew->buckets=bucketsNew;
     oSymTableNew->BucketSize=BucketSize[BucketIndex];
     oSymTableNew->length=oSymTable->length;
