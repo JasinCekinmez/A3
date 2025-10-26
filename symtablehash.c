@@ -135,7 +135,7 @@ it expands the bucket size to the next value in
 BucketSize and repositions the bindings accordingly in
 this new buckets and returns nothing (void)
 */
-static void Resize(SymTable_T oSymTable){
+static void SymTable_Resize(SymTable_T oSymTable){
     struct Binding *psCurrentBinding;
     struct Binding *psNextBinding;
     size_t i;
@@ -180,7 +180,7 @@ int SymTable_put(SymTable_T oSymTable,
         of buckets and number of bindings is less than bucketMax we resize buckets */
         bucketMax=65521;
         if(oSymTable->BucketSize<oSymTable->length && oSymTable->length<bucketMax){
-            Resize(oSymTable);
+            SymTable_Resize(oSymTable);
         }
         
         if (SymTable_contains(oSymTable, pcKey)==1)
