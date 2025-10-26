@@ -18,7 +18,7 @@ struct Binding
 };
 
 
-struct SymTable_T
+struct SymTable
 {
    /* The number of bindings */
    size_t length; 
@@ -49,7 +49,7 @@ SymTable_T SymTable_new(void)
 {
    SymTable_T oSymTable;
 
-   oSymTable = malloc(sizeof(struct SymTable_T));
+   oSymTable = malloc(sizeof(struct SymTable));
    if (oSymTable == NULL){
     return NULL;
    }

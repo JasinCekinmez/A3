@@ -14,7 +14,7 @@ struct Binding
    struct Binding *psNextBinding;
 };
 
-struct SymTable_T
+struct SymTable
 {
    /* The number of bindings */
    size_t length; 
@@ -27,7 +27,7 @@ SymTable_T SymTable_new(void)
 {
    SymTable_T oSymTable;
 
-   oSymTable = (SymTable_T)malloc(sizeof(struct SymTable_T));
+   oSymTable = (SymTable_T)malloc(sizeof(struct SymTable));
    if (oSymTable == NULL)
       return NULL;
 
@@ -160,9 +160,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
         psCurrentBinding=oSymTable->psFirstBinding;
-        if(psCurrentBinding==NULL)
-            return NULL;
-        
+        assert(psCurrentBinding!=NULL)
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             void * temp = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
@@ -180,7 +178,7 @@ int SymTable_put(SymTable_T oSymTable,
             
             psCurrentBinding = psCurrentBinding->psNextBinding;
             if (psCurrentBinding==NULL)
-                return NULL;
+            r
             if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
                void * temp = psCurrentBinding->pvValue;
                psNextBinding=psCurrentBinding->psNextBinding;
@@ -212,6 +210,7 @@ int SymTable_put(SymTable_T oSymTable,
 
 
     }
+
 
 
 
