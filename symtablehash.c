@@ -152,7 +152,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         if(BucketSize[BucketIndex]<oSymTable->length && oSymTable->length<65521){
             Resize(oSymTable);
-            printf("resized")
+            printf("resized");
         }
         
         if (SymTable_contains(oSymTable, pcKey)==1)
