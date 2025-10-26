@@ -179,13 +179,13 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     and make the second binding the first one 
     and free the corresponding key and binding*/
     if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-        void * temp = psCurrentBinding->pvValue;
+        void * value = psCurrentBinding->pvValue;
         psNextBinding=psCurrentBinding->psNextBinding;
         free((void *)(psCurrentBinding->pcKey));
         free( psCurrentBinding);
         oSymTable->psFirstBinding = psNextBinding;
         oSymTable->length=oSymTable->length-1;
-        return temp;
+        return value;
     }
     /* Same as above just now looping through the entire linked
     list*/
@@ -197,13 +197,13 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
         if (psCurrentBinding==NULL)
             return NULL;
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-            void * temp = psCurrentBinding->pvValue;
+            void * value = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
             free((void *) (psCurrentBinding->pcKey));
             free(psCurrentBinding);
             psPreviousBinding->psNextBinding=psNextBinding;
             oSymTable->length=oSymTable->length-1;
-            return temp; 
+            return value; 
         }
     }
     return NULL;

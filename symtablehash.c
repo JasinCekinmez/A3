@@ -101,7 +101,7 @@ void SymTable_free(SymTable_T oSymTable)
 }
 
 size_t SymTable_getLength(SymTable_T oSymTable){
-    assert(oSymTable!=NULL)
+    assert(oSymTable!=NULL);
     return oSymTable->length;
 }
 
@@ -218,9 +218,9 @@ void *SymTable_replace(SymTable_T oSymTable,
                 psCurrentBinding = psNextBinding)
         {
             if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-               void * temp = psCurrentBinding->pvValue;
+               void * OldValue = psCurrentBinding->pvValue;
                psCurrentBinding->pvValue = (void *) pvValue;
-               return temp; 
+               return OldValue; 
             }
             psNextBinding = psCurrentBinding->psNextBinding;
         }
@@ -269,13 +269,13 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     and make the second binding the first one 
     and free the corresponding key and binding*/
     if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-        void * temp = psCurrentBinding->pvValue;
+        void * value = psCurrentBinding->pvValue;
         psNextBinding=psCurrentBinding->psNextBinding;
         free((void *)(psCurrentBinding->pcKey));
         free(psCurrentBinding);
         oSymTable->buckets[hash] = psNextBinding;
         oSymTable->length=oSymTable->length-1;
-        return temp;
+        return value;
     }
     
     /* Same as above just now looping through the entire linked
@@ -288,13 +288,13 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
         if (psCurrentBinding==NULL)
             return NULL;
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-            void * temp = psCurrentBinding->pvValue;
+            void * value = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
             free((void *) (psCurrentBinding->pcKey));
             free(psCurrentBinding);
             psPreviousBinding->psNextBinding=psNextBinding;
             oSymTable->length=oSymTable->length-1;
-            return temp; 
+            return value; 
         }
     }
     return NULL;
