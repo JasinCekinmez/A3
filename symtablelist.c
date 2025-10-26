@@ -160,7 +160,9 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
         psCurrentBinding=oSymTable->psFirstBinding;
-        assert(psCurrentBinding!=NULL)
+        if(psCurrentBinding==NULL)
+            return NULL;
+        
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             void * temp = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
@@ -178,7 +180,7 @@ int SymTable_put(SymTable_T oSymTable,
             
             psCurrentBinding = psCurrentBinding->psNextBinding;
             if (psCurrentBinding==NULL)
-            r
+                return NULL;
             if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
                void * temp = psCurrentBinding->pvValue;
                psNextBinding=psCurrentBinding->psNextBinding;
