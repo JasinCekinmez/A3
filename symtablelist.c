@@ -1,3 +1,4 @@
+/* Linked List implementation of Symbol Table*/
 #include <assert.h>
 #include <stdlib.h>
 #include "symtable.h"
@@ -69,7 +70,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
     struct Binding *psNextBinding;
 
     assert(oSymTable != NULL);
-
+    assert(pcKey != NULL);
     /* Loops through the entire linked list and checks
     if any of the keys match the key passed in
     */
@@ -96,6 +97,7 @@ int SymTable_put(SymTable_T oSymTable,
         struct Binding *psNewBinding;
 
         assert(oSymTable != NULL);
+        assert(pcKey != NULL);
 
         /* Makes sure not to add a binding with the same key*/
         if (SymTable_contains(oSymTable, pcKey)==1)
@@ -127,6 +129,7 @@ void *SymTable_replace(SymTable_T oSymTable,
         struct Binding *psNextBinding;
 
         assert(oSymTable != NULL);
+        assert(pcKey != NULL);
         /* Loop through the linked list until we find the key 
         and replace its value with the new value and return the old value*/
         for (psCurrentBinding = oSymTable->psFirstBinding;
@@ -148,6 +151,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
     struct Binding *psNextBinding;
 
     assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     /* Same gist as SymTable_replace but this time we do not
     replace anything*/
     for (psCurrentBinding = oSymTable->psFirstBinding;
@@ -167,7 +171,10 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     struct Binding *psCurrentBinding;
     struct Binding *psPreviousBinding;
     struct Binding *psNextBinding;
+    
     assert(oSymTable != NULL);
+    assert(pcKey != NULL);
+
     psCurrentBinding=oSymTable->psFirstBinding;
     if(psCurrentBinding==NULL)
         return NULL;
