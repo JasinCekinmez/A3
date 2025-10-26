@@ -53,7 +53,7 @@ SymTable_T SymTable_new(void)
    if (oSymTable == NULL)
       return NULL;
 
-   oSymTable->buckets = (struct Binding **) calloc(BucketSize[BucketIndex],sizeof(struct Binding*));
+   oSymTable->buckets = (struct Binding **) calloc(oSymTable->BucketSize,sizeof(struct Binding*));
    oSymTable->length = 0;
    oSymTable->BucketIndex=0;
    oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
@@ -66,7 +66,7 @@ void SymTable_free(SymTable_T oSymTable)
    struct Binding *psNextBinding;
    size_t i;
    assert(oSymTable != NULL);
-   for (i=0; i<BucketSize[BucketIndex]; i++){
+   for (i=0; i<oSymTable->BucketSize; i++){
     for (psCurrentBinding = oSymTable->buckets[i];
             psCurrentBinding != NULL;
             psCurrentBinding = psNextBinding)
@@ -93,7 +93,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
     struct Binding *psCurrentBinding;
     struct Binding *psNextBinding;
     
-    size_t hash = SymTable_hash(pcKey, BucketSize[BucketIndex]);
+    size_t hash = SymTable_hash(pcKey, oSymTable->BucketSize);
 
     assert(oSymTable != NULL);
 
@@ -123,7 +123,7 @@ static void Resize(SymTable_T oSymTable){
     size_t hash;
     struct Binding * temp;
     oSymTable->BucketIndex=oSymTable->BucketIndex+1;
-    oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex]
+    oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
     bucketsNew = (struct Binding **)calloc(oSymTable->BucketSize,sizeof(struct Binding*));
     if (bucketsNew == NULL)
         return;
@@ -136,10 +136,10 @@ static void Resize(SymTable_T oSymTable){
                     hash = SymTable_hash(psCurrentBinding->pcKey, oSymTable->BucketIndex);
                     psCurrentBinding->psNextBinding = bucketsNew[hash];
                     bucketsNew[hash] = psCurrentBinding;
-                    /*temp = bucketsNew[hash]->psNextBinding;*/
-                    /*bucketsNew[hash]=psCurrentBinding;
-                    /*bucketsNew[hash]->psNextBinding=temp;*/
-                    /*psNextBinding = psCurrentBinding->psNextBinding;*/
+                    /*temp = bucketsNew[hash]->psNextBinding;
+                    bucketsNew[hash]=psCurrentBinding;
+                    bucketsNew[hash]->psNextBinding=temp;
+                    psNextBinding = psCurrentBinding->psNextBinding;*/
                 }
     bucketsOld=oSymTable->buckets;
     free(bucketsOld);
@@ -166,7 +166,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         if (psNewBinding == NULL)
             return 0;
-        hash = SymTable_hash(pcKey, BucketSize[BucketIndex]);
+        hash = SymTable_hash(pcKey, oSymTable->BucketSize);
 
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
         psNewBinding->pvValue= (void *) pvValue;
@@ -266,7 +266,7 @@ void *SymTable_replace(SymTable_T oSymTable,
             size_t i;
             assert(oSymTable != NULL);
             assert(pfApply != NULL);
-            for (i=0; i<BucketSize[BucketIndex]; i++)
+            for (i=0; i<oSymTable->BucketSize; i++)
                 for (psCurrentBinding = oSymTable->buckets[i];
                     psCurrentBinding != NULL;
                     psCurrentBinding = psCurrentBinding->psNextBinding)
