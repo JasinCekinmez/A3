@@ -864,10 +864,10 @@ static void testLargeTable(int iBindingCount)
       iLarge--;
       printf("iLarge: %d\n", iLarge);
       if (iSmall < iLarge){
-         printf("Still smaller");
+         printf("Still smaller\n");
       }
       else{
-         printf("now larger!");
+         printf("now larger!\n");
       }
    }
    /* Get the middle binding -- if there is one. */
