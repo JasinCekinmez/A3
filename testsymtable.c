@@ -870,7 +870,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
    }
-
+   printf("tried");
    /* Remove each binding. Also free each binding's value. */
    iSmall = 0;
    iLarge = iBindingCount - 1;
@@ -916,7 +916,7 @@ static void testLargeTable(int iBindingCount)
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
    pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
-   printf("tried");
+   
    /* Free both SymTable objects. */
    SymTable_free(oSymTable);
    SymTable_free(oSymTableSmall);
