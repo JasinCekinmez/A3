@@ -49,7 +49,7 @@ SymTable_T SymTable_new(void)
 {
    SymTable_T oSymTable;
 
-   oSymTable = malloc(sizeof(SymTable_T));
+   oSymTable = malloc(sizeof(SymTable));
    if (oSymTable == NULL){
     return NULL;
    }
