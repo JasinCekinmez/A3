@@ -823,11 +823,10 @@ static void testLargeTable(int iBindingCount)
    ASSURE(iSuccessful);
    iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
    ASSURE(iSuccessful);
-   printf("hello world\n");
    /* Create oSymTable, the primary SymTable object. */
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
-
+   printf("hello world\n");
    /* Put iBindingCount new bindings into oSymTable.  Each binding's
       key and value contain the same characters. */
    for (i = 0; i < iBindingCount; i++)
