@@ -111,12 +111,12 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
     return 0; 
 }
 
-static SymTable_T Resize(SymTable_T oSymTable){
+static void Resize(SymTable_T oSymTable){
     struct Binding *psCurrentBinding;
     struct Binding *psNextBinding;
     size_t i;
     struct Binding **bucketsNew;
-    struct SymTable_T* oSymTableNew;
+    struct Binding **bucketsOld;
     BucketIndex=BucketIndex+1;
     bucketsNew = (struct Binding **)calloc(BucketSize[BucketIndex],sizeof(struct Binding));
     if (bucketsNew == NULL)
@@ -126,24 +126,14 @@ static SymTable_T Resize(SymTable_T oSymTable){
         for (psCurrentBinding = oSymTable->buckets[i];
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding){
-                    const char * CurrentKey=psCurrentBinding->pcKey;
-                    size_t hash=SymTable_hash(CurrentKey, BucketSize[BucketIndex]);
-                    struct Binding * psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
-                    psNewBinding->pcKey = strcpy(malloc(strlen(CurrentKey)+1),CurrentKey);
-                    /*psNewBinding->pcKey = CurrentKey;*/
-                    psNewBinding->pvValue = psCurrentBinding->pvValue;
-                    psNewBinding->psNextBinding=bucketsNew[hash];
-                    bucketsNew[hash]=psNewBinding;
-                    
+                    struct Binding * temp = bucketsNew[hash]->psNextBinding;
+                    bucketsNew[hash]=psCurrentBinding;
+                    bucketsNew[hash]->psNextBinding=temp;
                     psNextBinding = psCurrentBinding->psNextBinding;
                 }
-          
-    oSymTableNew=SymTable_new();
-    oSymTableNew->buckets=bucketsNew;
-    oSymTableNew->BucketSize=BucketSize[BucketIndex];
-    oSymTableNew->length=oSymTable->length;
-    /*SymTable_free(oSymTable);*/
-    return oSymTableNew;
+    bucketsOld=oSymTable->buckets;
+    free(bucketsOld);
+    oSymTable->buckets=bucketsNew;
 }
 
 int SymTable_put(SymTable_T oSymTable,
