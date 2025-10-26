@@ -135,15 +135,13 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNewBinding->psNextBinding=bucketsNew[hash];
                     bucketsNew[hash]=psNewBinding;
                     
-                    
-                    
                     psNextBinding = psCurrentBinding->psNextBinding;
-                   }
+                }
           
     oSymTableNew=SymTable_new();
-    oSymTableNew->buckets=bucketsNew;
-    oSymTableNew->BucketSize=BucketSize[BucketIndex];
-    oSymTableNew->length=oSymTable->length;
+    oSymTableNew.buckets=bucketsNew;
+    oSymTableNew.BucketSize=BucketSize[BucketIndex];
+    oSymTableNew.length=oSymTable->length;
     SymTable_free(oSymTable);
     return oSymTableNew;
 }
