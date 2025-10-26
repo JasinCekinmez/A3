@@ -14,7 +14,7 @@ struct Binding
    struct Binding *psNextBinding;
 };
 
-struct SymTable_T
+struct SymTable
 {
    /* The number of bindings */
    size_t length; 
