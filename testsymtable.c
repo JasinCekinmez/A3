@@ -812,12 +812,13 @@ static void testLargeTable(int iBindingCount)
    printf("Testing a potentially large SymTable object.\n");
    printf("No output except CPU time consumed should appear here:\n");
    fflush(stdout);
-   printf("hello world\n");
+   
    /* Note the current time. */
    iInitialClock = clock();
 
    /* Create oSymTableSmall, and put a couple of bindings into it. */
    oSymTableSmall = SymTable_new();
+   printf("hello world\n");
    ASSURE(oSymTableSmall != NULL);
    iSuccessful = SymTable_put(oSymTableSmall, "xxx", "xxx");
    ASSURE(iSuccessful);
