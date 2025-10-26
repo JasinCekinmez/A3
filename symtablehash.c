@@ -152,6 +152,7 @@ int SymTable_put(SymTable_T oSymTable,
 
         struct Binding *psNewBinding;
         size_t hash;
+        char * dest;
 
         assert(oSymTable != NULL);
 
@@ -170,11 +171,12 @@ int SymTable_put(SymTable_T oSymTable,
         }
         hash = SymTable_hash(pcKey, oSymTable->BucketSize);
 
-        psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
-        if(psNewBinding->pcKey==NULL){
+        dest=malloc(strlen(pcKey)+1);
+        if (dest==NULL){
             free(psNewBinding);
             return 0;
         }
+        psNewBinding->pcKey=strcpy(dest,pcKey);
         psNewBinding->pvValue= (void *) pvValue;
         psNewBinding->psNextBinding=oSymTable->buckets[hash];
         oSymTable->buckets[hash]=psNewBinding;
@@ -237,8 +239,8 @@ void *SymTable_replace(SymTable_T oSymTable,
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             void * temp = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
-            free(psCurrentBinding->pcKey);
-            free(psCurrentBinding);
+            free((void *)(psCurrentBinding->pcKey));
+            free( psCurrentBinding);
             oSymTable->buckets[hash] = psNextBinding;
             oSymTable->length=oSymTable->length-1;
             return temp;
@@ -255,7 +257,7 @@ void *SymTable_replace(SymTable_T oSymTable,
             if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
                void * temp = psCurrentBinding->pvValue;
                psNextBinding=psCurrentBinding->psNextBinding;
-               free(psCurrentBinding->pcKey);
+               free((void *) (psCurrentBinding->pcKey));
                free(psCurrentBinding);
                psPreviousBinding->psNextBinding=psNextBinding;
                oSymTable->length=oSymTable->length-1;
