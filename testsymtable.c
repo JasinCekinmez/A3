@@ -828,6 +828,8 @@ static void testLargeTable(int iBindingCount)
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
 
+   printf("hello"); /*REMOVE THIS*/
+
    /* Put iBindingCount new bindings into oSymTable.  Each binding's
       key and value contain the same characters. */
    for (i = 0; i < iBindingCount; i++)
@@ -869,8 +871,6 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
    }
-
-   printf("hello"); /*REMOVE THIS*/
 
    /* Remove each binding. Also free each binding's value. */
    iSmall = 0;
