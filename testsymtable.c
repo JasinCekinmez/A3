@@ -928,7 +928,7 @@ static void testLargeTable(int iBindingCount)
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
    pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
-   printf("uh oh!\n")
+   printf("uh oh!\n");
    
    /* Free both SymTable objects. */
    SymTable_free(oSymTable);
