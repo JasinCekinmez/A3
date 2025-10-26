@@ -129,9 +129,12 @@ static void Resize(SymTable_T oSymTable){
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding){
                     hash = SymTable_hash(psCurrentBinding->pcKey, BucketSize[BucketIndex]);
-                    temp = bucketsNew[hash]->psNextBinding;
+                    psCurrentBinding->psNextBinding = bucketsNew[hash];
+                    bucketsNew[hash] = psCurrentBinding;
+
+                    /* temp = bucketsNew[hash]->psNextBinding;
                     bucketsNew[hash]=psCurrentBinding;
-                    bucketsNew[hash]->psNextBinding=temp;
+                    bucketsNew[hash]->psNextBinding=temp;*/
                     psNextBinding = psCurrentBinding->psNextBinding;
                 }
     bucketsOld=oSymTable->buckets;
