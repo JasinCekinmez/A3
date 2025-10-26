@@ -116,7 +116,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
     struct Binding *psNextBinding;
     size_t i;
     struct Binding **bucketsNew;
-    struct SymTable_T oSymTableNew;
+    struct SymTable_T* oSymTableNew;
     BucketIndex=BucketIndex+1;
     bucketsNew = (struct Binding **)calloc(BucketSize[BucketIndex],sizeof(struct Binding));
     if (bucketsNew == NULL)
@@ -138,10 +138,10 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNextBinding = psCurrentBinding->psNextBinding;
                 }
           
-    oSymTableNew=SymTable_new();
-    oSymTableNew.buckets=bucketsNew;
-    oSymTableNew.BucketSize=BucketSize[BucketIndex];
-    oSymTableNew.length=oSymTable->length;
+    oSymTableNew=&SymTable_new();
+    oSymTableNew->buckets=bucketsNew;
+    oSymTableNew->BucketSize=BucketSize[BucketIndex];
+    oSymTableNew->length=oSymTable->length;
     SymTable_free(oSymTable);
     return oSymTableNew;
 }
