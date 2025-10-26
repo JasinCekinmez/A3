@@ -18,7 +18,7 @@ struct Binding
 };
 
 
-struct SymTable_T
+struct SymTable
 {
    /* The number of bindings */
    size_t length; 
@@ -49,7 +49,7 @@ SymTable_T SymTable_new(void)
 {
    SymTable_T oSymTable;
 
-   oSymTable = (SymTable_T)malloc(sizeof(struct SymTable_T));
+   oSymTable = malloc(sizeof(struct SymTable_T));
    if (oSymTable == NULL){
     return NULL;
    }
@@ -82,7 +82,7 @@ void SymTable_free(SymTable_T oSymTable)
        
         
         psNextBinding = psCurrentBinding->psNextBinding;
-        free((void *)(psCurrentBinding->pcKey));
+        free(psCurrentBinding->pcKey);
         free(psCurrentBinding);
     }
 }
