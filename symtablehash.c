@@ -237,8 +237,8 @@ void *SymTable_replace(SymTable_T oSymTable,
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             void * temp = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
-            free((void *)(psCurrentBinding->pcKey));
-            free( psCurrentBinding);
+            free(psCurrentBinding->pcKey);
+            free(psCurrentBinding);
             oSymTable->buckets[hash] = psNextBinding;
             oSymTable->length=oSymTable->length-1;
             return temp;
@@ -255,7 +255,7 @@ void *SymTable_replace(SymTable_T oSymTable,
             if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
                void * temp = psCurrentBinding->pvValue;
                psNextBinding=psCurrentBinding->psNextBinding;
-               free((void *) (psCurrentBinding->pcKey));
+               free(psCurrentBinding->pcKey);
                free(psCurrentBinding);
                psPreviousBinding->psNextBinding=psNextBinding;
                oSymTable->length=oSymTable->length-1;
