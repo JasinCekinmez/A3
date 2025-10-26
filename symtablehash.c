@@ -128,14 +128,14 @@ static void Resize(SymTable_T oSymTable){
         for (psCurrentBinding = oSymTable->buckets[i];
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding){
+                    psNextBinding = psCurrentBinding->psNextBinding;
                     hash = SymTable_hash(psCurrentBinding->pcKey, BucketSize[BucketIndex]);
                     psCurrentBinding->psNextBinding = bucketsNew[hash];
                     bucketsNew[hash] = psCurrentBinding;
-
-                    /* temp = bucketsNew[hash]->psNextBinding;
-                    bucketsNew[hash]=psCurrentBinding;
-                    bucketsNew[hash]->psNextBinding=temp;*/
-                    psNextBinding = psCurrentBinding->psNextBinding;
+                    /*temp = bucketsNew[hash]->psNextBinding;*/
+                    /*bucketsNew[hash]=psCurrentBinding;
+                    /*bucketsNew[hash]->psNextBinding=temp;*/
+                    /*psNextBinding = psCurrentBinding->psNextBinding;*/
                 }
     bucketsOld=oSymTable->buckets;
     free(bucketsOld);
