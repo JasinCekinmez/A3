@@ -69,7 +69,6 @@ void SymTable_free(SymTable_T oSymTable)
             psCurrentBinding = psNextBinding)
     {
         if (psCurrentBinding->pcKey==0){
-            free(psCurrentBinding);
             break;
         }
         
@@ -140,7 +139,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
                     psNewBinding->pvValue = psCurrentBinding->pvValue;
                     psNewBinding->psNextBinding=oSymTable->buckets[hash];
                     bucketsNew[hash]=psNewBinding;
-                    free(psCurrentBinding);
+                    
 
                     psNextBinding = psCurrentBinding->psNextBinding;
                  
