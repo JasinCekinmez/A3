@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "symtable.h"
 #include <string.h>
+
 struct Binding
 {
    /* Key */
@@ -26,11 +27,10 @@ struct SymTable
 SymTable_T SymTable_new(void)
 {
    SymTable_T oSymTable;
-
    oSymTable = (SymTable_T)malloc(sizeof(struct SymTable));
    if (oSymTable == NULL)
       return NULL;
-
+   
    oSymTable->psFirstBinding = NULL;
    oSymTable->length = 0;
    return oSymTable;
@@ -64,9 +64,6 @@ size_t SymTable_getLength(SymTable_T oSymTable)
     return oSymTable->length;
 }
 
-
-
-
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
     struct Binding *psCurrentBinding;
     struct Binding *psNextBinding;
@@ -93,10 +90,6 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
     return 0; 
 }
 
-
-
-
-
 int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue){
 
@@ -113,8 +106,10 @@ int SymTable_put(SymTable_T oSymTable,
         if (psNewBinding == NULL)
             return 0;
 
-        /* Creates a new binding */
+        /* Creates a new binding and moves the new binding to the beginning
+        of the linked list*/
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
+        /* Makes sure that we have enough room to allocate a new key*/
         if (psNewBinding->pcKey==NULL){
             free(psNewBinding);
             return 0;
@@ -126,104 +121,106 @@ int SymTable_put(SymTable_T oSymTable,
         return 1; 
     }
 
-    void *SymTable_replace(SymTable_T oSymTable,
+void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue){
         struct Binding *psCurrentBinding;
         struct Binding *psNextBinding;
 
         assert(oSymTable != NULL);
-
+        /* Loop through the linked list until we find the key 
+        and replace its value with the new value and return the old value*/
         for (psCurrentBinding = oSymTable->psFirstBinding;
                 psCurrentBinding != NULL;
                 psCurrentBinding = psNextBinding)
         {
             if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-               void * temp = psCurrentBinding->pvValue;
-               psCurrentBinding->pvValue= (void *) pvValue;
-               return temp; 
+                void * OldValue = psCurrentBinding->pvValue;
+                psCurrentBinding->pvValue= (void *) pvValue;
+                return OldValue; 
             }
             psNextBinding = psCurrentBinding->psNextBinding;
         }
         return NULL;
     }
 
-    void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
-        struct Binding *psCurrentBinding;
-        struct Binding *psNextBinding;
+void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
+    struct Binding *psCurrentBinding;
+    struct Binding *psNextBinding;
 
-        assert(oSymTable != NULL);
-
-        for (psCurrentBinding = oSymTable->psFirstBinding;
-                psCurrentBinding != NULL;
-                psCurrentBinding = psNextBinding)
-        {
-            
-            if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-                return psCurrentBinding->pvValue;
-            }
-                psNextBinding = psCurrentBinding->psNextBinding;
-        }
-        return NULL;
-    }
-
-    void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
-        struct Binding *psCurrentBinding;
-        struct Binding *psPreviousBinding;
-        struct Binding *psNextBinding;
-
-        assert(oSymTable != NULL);
-        psCurrentBinding=oSymTable->psFirstBinding;
-        if(psCurrentBinding==NULL)
-            return NULL;
+    assert(oSymTable != NULL);
+    /* Same gist as SymTable_replace but this time we do not
+    replace anything*/
+    for (psCurrentBinding = oSymTable->psFirstBinding;
+            psCurrentBinding != NULL;
+            psCurrentBinding = psNextBinding)
+    {
         
+        if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
+            return psCurrentBinding->pvValue;
+        }
+            psNextBinding = psCurrentBinding->psNextBinding;
+    }
+    return NULL;
+}
+
+void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
+    struct Binding *psCurrentBinding;
+    struct Binding *psPreviousBinding;
+    struct Binding *psNextBinding;
+    assert(oSymTable != NULL);
+    psCurrentBinding=oSymTable->psFirstBinding;
+    if(psCurrentBinding==NULL)
+        return NULL;
+    /* Did it by casework since first case is linked
+    to oSymTable whereas the others we can just call
+    psNextBinding */
+    /* Essentially if the first binding in the linked list
+    has the same key as the key passed in we remove it 
+    and make the second binding the first one 
+    and free the corresponding key and binding*/
+    if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
+        void * temp = psCurrentBinding->pvValue;
+        psNextBinding=psCurrentBinding->psNextBinding;
+        free((void *)(psCurrentBinding->pcKey));
+        free( psCurrentBinding);
+        oSymTable->psFirstBinding = psNextBinding;
+        oSymTable->length=oSymTable->length-1;
+        return temp;
+    }
+    /* Same as above just now looping through the entire linked
+    list*/
+    for (psPreviousBinding = oSymTable->psFirstBinding;
+            psPreviousBinding != NULL;
+            psPreviousBinding = psCurrentBinding)
+    {
+        psCurrentBinding = psCurrentBinding->psNextBinding;
+        if (psCurrentBinding==NULL)
+            return NULL;
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             void * temp = psCurrentBinding->pvValue;
             psNextBinding=psCurrentBinding->psNextBinding;
-            free((void *)(psCurrentBinding->pcKey));
-            free( psCurrentBinding);
-            oSymTable->psFirstBinding = psNextBinding;
+            free((void *) (psCurrentBinding->pcKey));
+            free(psCurrentBinding);
+            psPreviousBinding->psNextBinding=psNextBinding;
             oSymTable->length=oSymTable->length-1;
-            return temp;
+            return temp; 
         }
-        
-        for (psPreviousBinding = oSymTable->psFirstBinding;
-                psPreviousBinding != NULL;
-                psPreviousBinding = psCurrentBinding)
-        {
-            
-            psCurrentBinding = psCurrentBinding->psNextBinding;
-            if (psCurrentBinding==NULL)
-                return NULL;
-            if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
-               void * temp = psCurrentBinding->pvValue;
-               psNextBinding=psCurrentBinding->psNextBinding;
-               free((void *) (psCurrentBinding->pcKey));
-               free(psCurrentBinding);
-               psPreviousBinding->psNextBinding=psNextBinding;
-               oSymTable->length=oSymTable->length-1;
-               return temp; 
-            }
-        }
-        
-        return NULL;
     }
+    return NULL;
+}
 
-    void SymTable_map(SymTable_T oSymTable,
+void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
     const void *pvExtra){
         struct Binding *psCurrentBinding;
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
-
-         for (psCurrentBinding = oSymTable->psFirstBinding;
+        /* Applues the function for every binding*/
+            for (psCurrentBinding = oSymTable->psFirstBinding;
             psCurrentBinding != NULL;
             psCurrentBinding = psCurrentBinding->psNextBinding)
-          (*pfApply)((void*)psCurrentBinding->pcKey,(void*) 
-          psCurrentBinding->pvValue,(void*)pvExtra);
-
-
-
-
+                (*pfApply)((void*)psCurrentBinding->pcKey,(void*) 
+                psCurrentBinding->pvValue,(void*)pvExtra);
     }
 
 
