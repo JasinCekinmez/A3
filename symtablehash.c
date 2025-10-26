@@ -162,7 +162,8 @@ int SymTable_put(SymTable_T oSymTable,
         if (SymTable_contains(oSymTable, pcKey)==1)
             return 0;
         
-        psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
+        
+        psNewBinding = malloc(sizeof(struct Binding));
 
         if (psNewBinding == NULL){
             free(psNewBinding);
