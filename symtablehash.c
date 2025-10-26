@@ -80,9 +80,6 @@ void SymTable_free(SymTable_T oSymTable)
     }
 }
     free(oSymTable->buckets);
-    free(oSymTable->length);
-    free(oSymTable->BucketSize);
-    free(oSymTable->BucketIndex);
     free(oSymTable);
 }
 
