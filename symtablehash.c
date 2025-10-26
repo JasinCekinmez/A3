@@ -82,7 +82,7 @@ void SymTable_free(SymTable_T oSymTable)
        
         
         psNextBinding = psCurrentBinding->psNextBinding;
-        free(psCurrentBinding->pcKey);
+        free((void *)psCurrentBinding->pcKey);
         free(psCurrentBinding);
     }
 }
