@@ -176,9 +176,9 @@ int SymTable_put(SymTable_T oSymTable,
         /* If the current number of bindings is greater than the current number
         of buckets and number of bindings is less than bucketMax we resize buckets */
         bucketMax=65521;
-        /*if(oSymTable->BucketSize<oSymTable->length && oSymTable->length<bucketMax){
+        if(oSymTable->BucketSize<oSymTable->length && oSymTable->length<bucketMax){
             Resize(oSymTable);
-        }*/
+        }
         
         if (SymTable_contains(oSymTable, pcKey)==1)
             return 0;
