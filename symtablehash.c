@@ -142,7 +142,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
     oSymTableNew->buckets=bucketsNew;
     oSymTableNew->BucketSize=BucketSize[BucketIndex];
     oSymTableNew->length=oSymTable->length;
-    SymTable_free(oSymTable);
+    /*SymTable_free(oSymTable);*/
     return oSymTableNew;
 }
 
