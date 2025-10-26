@@ -818,13 +818,12 @@ static void testLargeTable(int iBindingCount)
 
    /* Create oSymTableSmall, and put a couple of bindings into it. */
    oSymTableSmall = SymTable_new();
-   printf("hello world\n");
    ASSURE(oSymTableSmall != NULL);
    iSuccessful = SymTable_put(oSymTableSmall, "xxx", "xxx");
    ASSURE(iSuccessful);
    iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
    ASSURE(iSuccessful);
-   
+   printf("hello world\n");
    /* Create oSymTable, the primary SymTable object. */
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
