@@ -145,7 +145,7 @@ static SymTable_T Resize(SymTable_T oSymTable){
                         break;
                     }*/
                     
-                    /*psNextBinding = psCurrentBinding->psNextBinding;*/
+                    psNextBinding = psCurrentBinding->psNextBinding;
                     free((void *)(psCurrentBinding->pcKey));
                     /*free(psCurrentBinding);*/
                    }
