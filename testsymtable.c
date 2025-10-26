@@ -839,7 +839,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(iSuccessful);
       uLength = SymTable_getLength(oSymTable);
       ASSURE(uLength == (size_t)(i+1));
-      printf(uLength);
+      printf("uLength is %zu\n", uLength);
    }
 
    /* Get each binding's value, and make sure that it contains
