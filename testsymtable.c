@@ -110,57 +110,46 @@ static void testBasics(void)
    fflush(stdout);
 
    /* Test SymTable_new(). */
-   
+
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
-   
+
    /* Test SymTable_put() and SymTable_getLength(). */
 
    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
    ASSURE(iSuccessful);
-   
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 1);
-   
 
    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
    ASSURE(iSuccessful);
-   
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 2);
-   
 
    iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
    ASSURE(iSuccessful);
-   
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 3);
-   
 
    iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
    ASSURE(iSuccessful);
-   
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
-   
 
    /* Try to insert duplicate to first key entered */
    iSuccessful = SymTable_put(oSymTable, acJeter, acCenterField);
    ASSURE(! iSuccessful);
-   
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
-   
 
    /* Try to insert duplicate to last key entered */
    iSuccessful = SymTable_put(oSymTable, acRuth, acCenterField);
    ASSURE(! iSuccessful);
-   
 
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
@@ -173,7 +162,7 @@ static void testBasics(void)
 
    iFound = SymTable_contains(oSymTable, acMantle);
    ASSURE(iFound);
-   
+
    iFound = SymTable_contains(oSymTable, acGehrig);
    ASSURE(iFound);
 
@@ -190,7 +179,7 @@ static void testBasics(void)
 
    pcValue = (char*)SymTable_get(oSymTable, acJeter);
    ASSURE(pcValue == acShortstop);
-   
+
    pcValue = (char*)SymTable_get(oSymTable, acMantle);
    ASSURE(pcValue == acCenterField);
 
@@ -211,7 +200,7 @@ static void testBasics(void)
    pcValue = (char*)
       SymTable_replace(oSymTable, acMantle, acFirstBase);
    ASSURE(pcValue == acCenterField);
-   
+
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 4);
 
@@ -232,22 +221,21 @@ static void testBasics(void)
    /* Insert key with NULL value */
    iSuccessful = SymTable_put(oSymTable, acBrown, NULL);
    ASSURE(iSuccessful);
-   
+
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 5);
-   
+
    /* Try to insert duplicate of key that had NULL value */
    iSuccessful = SymTable_put(oSymTable, acBrown, acShortstop);
    ASSURE(! iSuccessful);
-   
+
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 5);
-   
+ 
 
    /* Test SymTable_free(). */
 
    SymTable_free(oSymTable);
-   
 }
 
 /*--------------------------------------------------------------------*/
@@ -812,7 +800,7 @@ static void testLargeTable(int iBindingCount)
    printf("Testing a potentially large SymTable object.\n");
    printf("No output except CPU time consumed should appear here:\n");
    fflush(stdout);
-   
+
    /* Note the current time. */
    iInitialClock = clock();
 
@@ -823,6 +811,7 @@ static void testLargeTable(int iBindingCount)
    ASSURE(iSuccessful);
    iSuccessful = SymTable_put(oSymTableSmall, "yyy", "yyy");
    ASSURE(iSuccessful);
+
    /* Create oSymTable, the primary SymTable object. */
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
@@ -839,7 +828,6 @@ static void testLargeTable(int iBindingCount)
       ASSURE(iSuccessful);
       uLength = SymTable_getLength(oSymTable);
       ASSURE(uLength == (size_t)(i+1));
-      
    }
 
    /* Get each binding's value, and make sure that it contains
@@ -854,14 +842,12 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iSmall++;
-      
       /* Get the largest of the remaining bindings. */
       sprintf(acKey, "%d", iLarge);
       pcValue = (char*)SymTable_get(oSymTable, acKey);
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iLarge--;
-      
    }
    /* Get the middle binding -- if there is one. */
    if (iSmall == iLarge)
@@ -871,6 +857,7 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
    }
+
    /* Remove each binding. Also free each binding's value. */
    iSmall = 0;
    iLarge = iBindingCount - 1;
@@ -912,16 +899,14 @@ static void testLargeTable(int iBindingCount)
 
    /* Make sure oSymTableSmall hasn't been corrupted by expansion
       of oSymTable. */
-   
    pcValue = (char*)SymTable_get(oSymTableSmall, "xxx");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "xxx") == 0));
    pcValue = (char*)SymTable_get(oSymTableSmall, "yyy");
    ASSURE((pcValue != NULL) && (strcmp(pcValue, "yyy") == 0));
-   
-   
+
    /* Free both SymTable objects. */
    SymTable_free(oSymTable);
-   /*SymTable_free(oSymTableSmall);*/
+   SymTable_free(oSymTableSmall);
 
    /* Note the current time, and print the time consumed to stdout. */
    iFinalClock = clock();
