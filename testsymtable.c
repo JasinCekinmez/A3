@@ -855,15 +855,15 @@ static void testLargeTable(int iBindingCount)
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iSmall++;
+      printf("iSmall: %d", iSmall);
       /* Get the largest of the remaining bindings. */
       sprintf(acKey, "%d", iLarge);
       pcValue = (char*)SymTable_get(oSymTable, acKey);
       ASSURE(pcValue != NULL);
       ASSURE((pcValue != NULL) && (strcmp(pcValue, acKey) == 0));
       iLarge--;
-      printf("tried\n");
+      printf("iLarge: %d", iLarge);
    }
-   printf("escaped");
    /* Get the middle binding -- if there is one. */
    if (iSmall == iLarge)
    {
