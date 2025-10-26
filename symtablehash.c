@@ -62,6 +62,9 @@ SymTable_T SymTable_new(void)
    oSymTable->BucketIndex=0;
    oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
    oSymTable->buckets = (struct Binding **) calloc(oSymTable->BucketSize,sizeof(struct Binding*));
+   if (oSymTable->buckets==NULL){
+    free(oSymTable->buckets);
+   }
    return oSymTable;
 }
 
@@ -168,6 +171,9 @@ int SymTable_put(SymTable_T oSymTable,
         hash = SymTable_hash(pcKey, oSymTable->BucketSize);
 
         psNewBinding->pcKey=strcpy(malloc(strlen(pcKey)+1),pcKey);
+        if(psNewBinding->pcKey==NULL){
+            free(psNewBinding->pcKey);
+        }
         psNewBinding->pvValue= (void *) pvValue;
         psNewBinding->psNextBinding=oSymTable->buckets[hash];
         oSymTable->buckets[hash]=psNewBinding;
