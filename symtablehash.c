@@ -60,7 +60,7 @@ SymTable_T SymTable_new(void)
    oSymTable->length = 0;
    oSymTable->BucketIndex=0;
    oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
-   oSymTable->buckets = (struct Binding **) calloc(oSymTable->BucketSize,sizeof(struct Binding*));
+   oSymTable->buckets = calloc(oSymTable->BucketSize,sizeof(struct Binding*));
    if (oSymTable->buckets==NULL){
     free(oSymTable);
     return NULL;
