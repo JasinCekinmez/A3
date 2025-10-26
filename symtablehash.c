@@ -150,10 +150,10 @@ int SymTable_put(SymTable_T oSymTable,
 
         assert(oSymTable != NULL);
 
-        if(BucketSize[BucketIndex]<oSymTable->length && oSymTable->length<65521){
-            Resize(oSymTable);
-            printf("resized");
-        }
+        // if(BucketSize[BucketIndex]<oSymTable->length && oSymTable->length<65521){
+        //     Resize(oSymTable);
+        //     printf("resized");
+        // }
         
         if (SymTable_contains(oSymTable, pcKey)==1)
             return 0;
@@ -169,6 +169,12 @@ int SymTable_put(SymTable_T oSymTable,
         psNewBinding->psNextBinding=oSymTable->buckets[hash];
         oSymTable->buckets[hash]=psNewBinding;
         oSymTable->length=oSymTable->length+1;
+
+        if(BucketSize[BucketIndex]<oSymTable->length && oSymTable->length<65521){
+            Resize(oSymTable);
+            printf("resized");
+        }
+
         return 1; 
     }
 
