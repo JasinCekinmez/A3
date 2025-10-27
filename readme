@@ -146,7 +146,7 @@ write "None."
    symtablehash.c: line 181: high priority: 
    Use of magic number (65521), which should be given a meaningful name
 I disagree with the asserts as explained above, plus I already define 
-
+bucketMax=65521, so I disagree with that statement. 
 
 
 ------------------------------------------------------------------------

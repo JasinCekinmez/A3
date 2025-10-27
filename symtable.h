@@ -1,4 +1,4 @@
-/* Header File for Symbol Table*/
+/* Symbol Table Interface*/
 #ifndef SYMTABLE_INCLUDED
 #define SYMTABLE_INCLUDED
 #include <stddef.h>
@@ -11,7 +11,8 @@ typedef struct SymTable *SymTable_T;
 a new symbol table SymTable_T object*/
 SymTable_T SymTable_new(void);
 
-/* SymTable_free takes in a SymTable_T oSymTable, frees the dynamic memory
+/* SymTable_free takes in a SymTable_T oSymTable, 
+frees the dynamic memory
 that the symbol table has and returns nothing (void) */
 void SymTable_free(SymTable_T oSymTable);
 
@@ -20,7 +21,7 @@ the size_t amount of bindings contained within oSymTable*/
 size_t SymTable_getLength(SymTable_T oSymTable);
 
 /*SymTable_put takes in a SymTable_T oSymTable, 
-and the corresponding key, value
+and the corresponding key, value pair
 const char *pcKey, const void *pvValue
 that you want to put in the symbol table
 returns an int 1 if it was able to insert the pair into
