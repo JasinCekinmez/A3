@@ -29,7 +29,7 @@ the symbol table 0 otherwise */
 int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue);
 
-/* SymTable_replace takes in a ymTable_T oSymTable,
+/* SymTable_replace takes in a SymTable_T oSymTable,
 the corresponding key value pair 
 const char *pcKey, const void *pvValue,
 returns (void *) the previous value and replaces

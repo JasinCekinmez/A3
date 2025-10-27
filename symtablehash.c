@@ -5,9 +5,10 @@
 #include <string.h>
 
 /* The possible bucket sizes*/
-static const size_t BucketSize[]={509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
+static const size_t BucketSize[]={509, 1021, 2039, 
+    4093, 8191, 16381, 32749, 65521};
 
-/* Same structure as Binding before*/
+/* Same structure as Binding in linked list implementation*/
 struct Binding
 {
    /* Key*/
@@ -33,7 +34,7 @@ struct SymTable
    /* The current position in the BucketSize array
    corresponding to the current BucketSize*/
    /* Introduced to allow for not just one symbol table
-   but many */
+   but multiple */
    size_t BucketIndex;
 
    /* Pointer to an array of pointer to bindings corresponding
@@ -142,9 +143,9 @@ static void SymTable_Resize(SymTable_T oSymTable){
     struct Binding **bucketsNew;
     struct Binding **bucketsOld;
     size_t hash;
+    
     /* Updates the symbol table with the new bucket size and index
     and callocs a new bucket*/
-    
     oSymTable->BucketIndex=(oSymTable->BucketIndex)+1;
     oSymTable->BucketSize=BucketSize[oSymTable->BucketIndex];
     bucketsNew = calloc(oSymTable->BucketSize,sizeof(struct Binding*));
@@ -164,7 +165,8 @@ static void SymTable_Resize(SymTable_T oSymTable){
                     bucketsNew[hash] = psCurrentBinding;
                 }
     
-    /* Frees the old buckets and has the oSymTable point to the New Buckets*/
+    /* Frees the old buckets and has the oSymTable point 
+    to the New Buckets*/
     bucketsOld=oSymTable->buckets;
     free(bucketsOld);
     oSymTable->buckets=bucketsNew;
@@ -177,8 +179,10 @@ int SymTable_put(SymTable_T oSymTable,
         size_t bucketMax; 
         assert(oSymTable != NULL);
 
-        /* If the current number of bindings is greater than the current number
-        of buckets and number of bindings is less than bucketMax we resize buckets */
+        /* If the current number of bindings is greater than the
+         current number
+        of buckets and number of bindings is less than bucketMax 
+        we resize buckets */
         bucketMax=65521;
         if(oSymTable->BucketSize<oSymTable->length && oSymTable->length<bucketMax){
             SymTable_Resize(oSymTable);

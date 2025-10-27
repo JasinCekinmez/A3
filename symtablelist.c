@@ -80,32 +80,23 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
             psCurrentBinding != NULL;
             psCurrentBinding = psNextBinding)
     {
-        
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             return 1;
         }
-       
-        
         psNextBinding = psCurrentBinding->psNextBinding;
-
-
     }
     return 0; 
 }
 
 int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue){
-
         struct Binding *psNewBinding;
-
         assert(oSymTable != NULL);
 
         /* Makes sure not to add a binding with the same key*/
         if (SymTable_contains(oSymTable, pcKey)==1)
             return 0;
-        
         psNewBinding = (struct Binding *) malloc(sizeof(struct Binding));
-
         if (psNewBinding == NULL)
             return 0;
 
@@ -157,7 +148,6 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
             psCurrentBinding != NULL;
             psCurrentBinding = psNextBinding)
     {
-        
         if (strcmp(psCurrentBinding->pcKey,pcKey)==0){
             return psCurrentBinding->pvValue;
         }
@@ -218,8 +208,10 @@ void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
     const void *pvExtra){
         struct Binding *psCurrentBinding;
+        
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
+        
         /* Applues the function for every binding*/
             for (psCurrentBinding = oSymTable->psFirstBinding;
             psCurrentBinding != NULL;
